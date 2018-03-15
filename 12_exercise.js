@@ -54,19 +54,10 @@ function filterCandidates(candidates, filters) {
     for (var candidateIndex = numberOfCandidates; candidateIndex--; ) {
       hasOptions = candidates[candidateIndex].options && candidates[candidateIndex].options.length > 0; //has.options
 
-      if (candidates[candidateIndex].options) {
-        for (var filterIndex = numberOfFilters; filterIndex--; ) {
-          // loop through filters
-          var hasFilter = false;
-          for (var optionsIndex = candidates[candidateIndex].options.length; optionsIndex--; ) {
-            if (!availableImmediatelyRequested && !freshGradRequested) {
-              if (filters[filterIndex] == candidates[candidateIndex].options[optionsIndex].code) {
-                hasFilter = true;
-              }
-            }
-          }
-          hasOptions = hasOptions && hasFilter;
-        }
+      if (hasOptions) {
+        var candidateCodes = candidates[candidateIndex].options.map(option => option.code)
+        var hasFilter = filters.every(filter => candidateCodes.includes(filter));
+        hasOptions = hasOptions && hasFilter;
       }
       if (hasOptions) {
         filteredCandidates.unshift(candidates[candidateIndex]);
