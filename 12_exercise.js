@@ -16,6 +16,16 @@
  *   happy refactory :)
  */
 
+ function filterByAvailableImmediately(candidates) {
+   return candidates.filter(candidate => {
+     return candidate.options.some(isAvailableImmediately);
+   })
+ }
+
+ function isAvailableImmediately(option){
+   return option.code == 'AVAILABLE_IMMEDIATELY';
+ }
+
 function filterCandidates(candidates, filters) {
   var filteredCandidates = [];
   var numberOfCandidates = candidates.length;
@@ -27,6 +37,7 @@ function filterCandidates(candidates, filters) {
   if (numberOfFilters) {
     if (filters.includes('AVAILABLE_IMMEDIATELY')) {
       availableImmediatelyRequested = true;
+      return filterByAvailableImmediately(candidates);
     } else if (filters.includes('FRESH_GRAD')) {
       freshGradRequested = true;
     }
