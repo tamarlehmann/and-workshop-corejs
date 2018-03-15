@@ -26,6 +26,16 @@
    return option.code == 'AVAILABLE_IMMEDIATELY';
  }
 
+ function filterByFreshGrad(candidates) {
+   return candidates.filter(candidate => {
+     return candidate.options.some(isFreshGrad);
+   })
+ }
+
+ function isFreshGrad(option){
+   return option.code == 'FRESH_GRAD';
+ }
+
 function filterCandidates(candidates, filters) {
   var filteredCandidates = [];
   var numberOfCandidates = candidates.length;
@@ -36,10 +46,9 @@ function filterCandidates(candidates, filters) {
 
   if (numberOfFilters) {
     if (filters.includes('AVAILABLE_IMMEDIATELY')) {
-      availableImmediatelyRequested = true;
       return filterByAvailableImmediately(candidates);
     } else if (filters.includes('FRESH_GRAD')) {
-      freshGradRequested = true;
+      return filterByFreshGrad(candidates)
     }
 
     for (var candidateIndex = numberOfCandidates; candidateIndex--; ) {
