@@ -16,9 +16,9 @@
  *   happy refactory :)
  */
 
-function filter(results, filters) {
+function filter(candidates, filters) {
   var out = [];
-  var resultsLength = results.length;
+  var numberOfCandidates = candidates.length;
   var filterLength = filters.length;
   var hasOptions;
   var availableImmediately = false;
@@ -31,26 +31,26 @@ function filter(results, filters) {
       freshGrad = true;
     }
 
-    for (var i = resultsLength; i--; ) {
-      hasOptions = results[i].options && results[i].options.length > 0; //has.options
+    for (var i = numberOfCandidates; i--; ) {
+      hasOptions = candidates[i].options && candidates[i].options.length > 0; //has.options
 
-      if (results[i].options) {
+      if (candidates[i].options) {
         for (var k = filterLength; k--; ) {
           // loop through filters
           var hasFilter = false;
-          for (var j = results[i].options.length; j--; ) {
+          for (var j = candidates[i].options.length; j--; ) {
             if (!availableImmediately && !freshGrad) {
-              if (filters[k] == results[i].options[j].code) {
+              if (filters[k] == candidates[i].options[j].code) {
                 hasFilter = true;
               }
             } else if (
               availableImmediately &&
-              results[i].options[j].code === 'AVAILABLE_IMMEDIATELY'
+              candidates[i].options[j].code === 'AVAILABLE_IMMEDIATELY'
             ) {
               hasFilter = true;
             } else if (
               freshGrad &&
-              results[i].options[j].code === 'FRESH_GRAD'
+              candidates[i].options[j].code === 'FRESH_GRAD'
             ) {
               hasFilter = true;
             }
@@ -59,11 +59,11 @@ function filter(results, filters) {
         }
       }
       if (hasOptions) {
-        out.unshift(results[i]);
+        out.unshift(candidates[i]);
       }
     }
   } else {
-    out = results;
+    out = candidates;
   }
   return out;
 }
