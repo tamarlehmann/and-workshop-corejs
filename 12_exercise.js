@@ -19,12 +19,12 @@
 function filter(candidates, filters) {
   var out = [];
   var numberOfCandidates = candidates.length;
-  var filterLength = filters.length;
+  var numberOfFilters = filters.length;
   var hasOptions;
   var availableImmediately = false;
   var freshGrad = false;
 
-  if (filterLength !== 0) {
+  if (numberOfFilters !== 0) {
     if (filters.indexOf('AVAILABLE_IMMEDIATELY') !== -1) {
       availableImmediately = true;
     } else if (filters.indexOf('FRESH_GRAD') !== -1) {
@@ -35,7 +35,7 @@ function filter(candidates, filters) {
       hasOptions = candidates[i].options && candidates[i].options.length > 0; //has.options
 
       if (candidates[i].options) {
-        for (var k = filterLength; k--; ) {
+        for (var k = numberOfFilters; k--; ) {
           // loop through filters
           var hasFilter = false;
           for (var j = candidates[i].options.length; j--; ) {
