@@ -16,7 +16,7 @@
  *   happy refactory :)
  */
 
-function filter(candidates, filters) {
+function filterCandidates(candidates, filters) {
   var filteredCandidates = [];
   var numberOfCandidates = candidates.length;
   var numberOfFilters = filters.length;
@@ -68,4 +68,4 @@ function filter(candidates, filters) {
   return filteredCandidates;
 }
 
-module.exports = filter;
+module.exports = filterCandidates;
