@@ -25,9 +25,9 @@ function filter(candidates, filters) {
   var freshGrad = false;
 
   if (numberOfFilters !== 0) {
-    if (filters.indexOf('AVAILABLE_IMMEDIATELY') !== -1) {
+    if (filters.includes('AVAILABLE_IMMEDIATELY')) {
       availableImmediately = true;
-    } else if (filters.indexOf('FRESH_GRAD') !== -1) {
+    } else if (filters.includes('FRESH_GRAD')) {
       freshGrad = true;
     }
 
