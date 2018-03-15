@@ -16,57 +16,31 @@
  *   happy refactory :)
  */
 
- function filterByAvailableImmediately(candidates) {
-   return candidates.filter(candidate => {
-     return candidate.options.some(isAvailableImmediately);
-   })
- }
 
- function isAvailableImmediately(option){
-   return option.code == 'AVAILABLE_IMMEDIATELY';
- }
-
- function filterByFreshGrad(candidates) {
-   return candidates.filter(candidate => {
-     return candidate.options.some(isFreshGrad);
-   })
- }
-
- function isFreshGrad(option){
-   return option.code == 'FRESH_GRAD';
- }
+function optionsHasFilter(options, filter){
+   return options.some(option => {
+    return option.code == filter;
+  })
+}
 
 function filterCandidates(candidates, filters) {
-  var filteredCandidates = [];
-  var numberOfCandidates = candidates.length;
-  var numberOfFilters = filters.length;
-  var hasOptions;
-  var availableImmediatelyRequested = false;
-  var freshGradRequested = false;
-
-  if (numberOfFilters) {
-    if (filters.includes('AVAILABLE_IMMEDIATELY')) {
-      return filterByAvailableImmediately(candidates);
-    } else if (filters.includes('FRESH_GRAD')) {
-      return filterByFreshGrad(candidates)
-    }
-
-    for (var candidateIndex = numberOfCandidates; candidateIndex--; ) {
-      hasOptions = candidates[candidateIndex].options && candidates[candidateIndex].options.length > 0; //has.options
-
-      if (hasOptions) {
-        var candidateCodes = candidates[candidateIndex].options.map(option => option.code)
-        var hasFilter = filters.every(filter => candidateCodes.includes(filter));
-        hasOptions = hasOptions && hasFilter;
-      }
-      if (hasOptions) {
-        filteredCandidates.unshift(candidates[candidateIndex]);
-      }
-    }
-  } else {
-    filteredCandidates = candidates;
+  if (filters.includes('AVAILABLE_IMMEDIATELY')) {
+    return candidates.filter(candidate => {
+      return optionsHasFilter(candidate.options, 'AVAILABLE_IMMEDIATELY');
+    })
   }
-  return filteredCandidates;
+
+  if (filters.includes('FRESH_GRAD')) {
+    return candidates.filter(candidate => {
+      return optionsHasFilter(candidate.options, 'FRESH_GRAD')
+    })
+  }
+
+  return candidates.filter(candidate => {
+    var candidateCodes = candidate.options.map(option => option.code);
+    return filters.every(filter => candidateCodes.includes(filter))
+  });
+
 }
 
 module.exports = filterCandidates;
