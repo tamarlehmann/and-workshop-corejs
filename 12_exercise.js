@@ -63,16 +63,6 @@ function filterCandidates(candidates, filters) {
               if (filters[filterIndex] == candidates[candidateIndex].options[optionsIndex].code) {
                 hasFilter = true;
               }
-            } else if (
-              availableImmediatelyRequested &&
-              candidates[candidateIndex].options[optionsIndex].code === 'AVAILABLE_IMMEDIATELY'
-            ) {
-              hasFilter = true;
-            } else if (
-              freshGradRequested &&
-              candidates[candidateIndex].options[optionsIndex].code === 'FRESH_GRAD'
-            ) {
-              hasFilter = true;
             }
           }
           hasOptions = hasOptions && hasFilter;
