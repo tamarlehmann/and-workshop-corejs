@@ -17,7 +17,7 @@
  */
 
 function filter(candidates, filters) {
-  var out = [];
+  var filteredCandidates = [];
   var numberOfCandidates = candidates.length;
   var numberOfFilters = filters.length;
   var hasOptions;
@@ -59,13 +59,13 @@ function filter(candidates, filters) {
         }
       }
       if (hasOptions) {
-        out.unshift(candidates[i]);
+        filteredCandidates.unshift(candidates[i]);
       }
     }
   } else {
-    out = candidates;
+    filteredCandidates = candidates;
   }
-  return out;
+  return filteredCandidates;
 }
 
 module.exports = filter;
