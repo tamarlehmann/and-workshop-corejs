@@ -28,8 +28,8 @@ console.log(`foo1 count ${foo1.count} \n`); // 0 -- WTF?
 
 i = 0;
 console.log();
-/* When the code executes foo.count = 0, indeed it's adding a property count to the function object foo. 
-But for the this.count reference inside of the function, this is not in fact pointing at all to that function object, 
+/* When the code executes foo.count = 0, indeed it's adding a property count to the function object foo.
+But for the this.count reference inside of the function, this is not in fact pointing at all to that function object,
 and so even though the property names are the same, the root objects are different, and confusion ensues.
 
 which count was I incrementing?
@@ -177,6 +177,7 @@ var obj = {
 };
 
 bar4.call(obj); // 2
+bar4.apply(obj, [a, b c])
 
 /*
 Called with new? Use the newly constructed object.
