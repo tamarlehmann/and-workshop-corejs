@@ -21,14 +21,14 @@ function filterCandidates(candidates, filters) {
   var numberOfCandidates = candidates.length;
   var numberOfFilters = filters.length;
   var hasOptions;
-  var availableImmediately = false;
-  var freshGrad = false;
+  var availableImmediatelyRequested = false;
+  var freshGradRequested = false;
 
   if (numberOfFilters) {
     if (filters.includes('AVAILABLE_IMMEDIATELY')) {
-      availableImmediately = true;
+      availableImmediatelyRequested = true;
     } else if (filters.includes('FRESH_GRAD')) {
-      freshGrad = true;
+      freshGradRequested = true;
     }
 
     for (var i = numberOfCandidates; i--; ) {
@@ -39,17 +39,17 @@ function filterCandidates(candidates, filters) {
           // loop through filters
           var hasFilter = false;
           for (var j = candidates[i].options.length; j--; ) {
-            if (!availableImmediately && !freshGrad) {
+            if (!availableImmediatelyRequested && !freshGradRequested) {
               if (filters[k] == candidates[i].options[j].code) {
                 hasFilter = true;
               }
             } else if (
-              availableImmediately &&
+              availableImmediatelyRequested &&
               candidates[i].options[j].code === 'AVAILABLE_IMMEDIATELY'
             ) {
               hasFilter = true;
             } else if (
-              freshGrad &&
+              freshGradRequested &&
               candidates[i].options[j].code === 'FRESH_GRAD'
             ) {
               hasFilter = true;
