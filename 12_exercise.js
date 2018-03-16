@@ -17,24 +17,32 @@
  */
 
 
-function optionsHasRequirement(options, requirement) {
-  if (!options) return
-   return options.some(option => {
+function doesCandidateHaveRequirement(candidate, requirement) {
+  if (!candidate.options) return
+   return candidate.options.some(option => {
     return option.code == requirement;
   })
 }
 
+function candidateHasNoOptions(candidate) {
+  return !candidate.options
+}
+
 function candidatesWithRequirement(candidates, requirement) {
   return candidates.filter(candidate => {
-    return optionsHasRequirement(candidate.options, requirement);
+    return doesCandidateHaveRequirement(candidate, requirement);
   })
+}
+
+function doesCandidateHaveAllRequirements(candidate, requirements) {
+  let candidateCodes = candidate.options.map(option => option.code);
+  return requirements.every(requirement => candidateCodes.includes(requirement))
 }
 
 function candidatesWithAllRequirements(candidates, requirements) {
   return candidates.filter(candidate => {
-    if (!candidate.options) return
-    let candidateCodes = candidate.options.map(option => option.code);
-    return requirements.every(requirement => candidateCodes.includes(requirement))
+    if(candidateHasNoOptions(candidate)) return
+    return doesCandidateHaveAllRequirements(candidate, requirements)
   });
 }
 
