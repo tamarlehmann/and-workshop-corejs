@@ -17,17 +17,25 @@
  */
 
 
-function optionsHasRequirement(options, requirement){
+function optionsHasRequirement(options, requirement) {
   if (!options) return
    return options.some(option => {
     return option.code == requirement;
   })
 }
 
-function candidatesWithRequirement(candidates, requirement){
+function candidatesWithRequirement(candidates, requirement) {
   return candidates.filter(candidate => {
     return optionsHasRequirement(candidate.options, requirement);
   })
+}
+
+function candidatesWithAllRequirements(candidates, requirements) {
+  return candidates.filter(candidate => {
+    if (!candidate.options) return
+    let candidateCodes = candidate.options.map(option => option.code);
+    return requirements.every(requirement => candidateCodes.includes(requirement))
+  });
 }
 
 function filterCandidates(candidates, requirements) {
@@ -43,11 +51,7 @@ function filterCandidates(candidates, requirements) {
     return candidatesWithRequirement(candidates, 'FRESH_GRAD')
   }
 
-  return candidates.filter(candidate => {
-    if (!candidate.options) return
-    let candidateCodes = candidate.options.map(option => option.code);
-    return requirements.every(requirement => candidateCodes.includes(requirement))
-  });
+  return candidatesWithAllRequirements(candidates, requirements)
 
 }
 
