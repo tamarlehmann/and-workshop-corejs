@@ -18,12 +18,17 @@
 
 
 function optionsHasFilter(options, filter){
+  if (!options) return
    return options.some(option => {
     return option.code == filter;
   })
 }
 
 function filterCandidates(candidates, filters) {
+  if(!filters || filters.length === 0) {
+    return candidates
+  };
+
   if (filters.includes('AVAILABLE_IMMEDIATELY')) {
     return candidates.filter(candidate => {
       return optionsHasFilter(candidate.options, 'AVAILABLE_IMMEDIATELY');
@@ -37,6 +42,7 @@ function filterCandidates(candidates, filters) {
   }
 
   return candidates.filter(candidate => {
+    if (!candidate.options) return
     var candidateCodes = candidate.options.map(option => option.code);
     return filters.every(filter => candidateCodes.includes(filter))
   });

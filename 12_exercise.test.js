@@ -64,3 +64,23 @@ it('should return 5 candidate with [JAVASCRIPT]', () => {
   expect(candidates[0].name).toBe('Julian Assange');
   expect(candidates[2].name).toBe('Maria Bianchi');
 });
+
+it('should return 5 candidate with [JAVASCRIPT] when any candidate has no options', () => {
+  const candidates = filterCandidates(data, ['JAVASCRIPT']);
+
+  expect(candidates.length).toBe(4);
+  expect(candidates[0].name).toBe('Julian Assange');
+  expect(candidates[2].name).toBe('Maria Bianchi');
+})
+
+it('should return all candidates if there is no filter', () => {
+  const candidates = filterCandidates(data);
+
+  expect(candidates.length).toBe(9);
+});
+
+it.only('should return all candidates if the filter aray is empty', () => {
+  const candidates = filterCandidates(data, []);
+
+  expect(candidates.length).toBe(9);
+});
