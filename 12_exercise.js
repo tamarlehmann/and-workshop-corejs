@@ -24,9 +24,11 @@ function optionsHasRequirement(options, requirement){
   })
 }
 
-// function something(candidates, filter) {
-//   returnAllCandidatesWithFilter
-// }
+function candidatesWithRequirement(candidates, requirement){
+  return candidates.filter(candidate => {
+    return optionsHasRequirement(candidate.options, requirement);
+  })
+}
 
 function filterCandidates(candidates, requirements) {
   if(!requirements || requirements.length === 0) {
@@ -34,15 +36,11 @@ function filterCandidates(candidates, requirements) {
   };
 
   if (requirements.includes('AVAILABLE_IMMEDIATELY')) {
-    return candidates.filter(candidate => {
-      return optionsHasRequirement(candidate.options, 'AVAILABLE_IMMEDIATELY');
-    })
+    return candidatesWithRequirement(candidates, 'AVAILABLE_IMMEDIATELY')
   }
 
   if (requirements.includes('FRESH_GRAD')) {
-    return candidates.filter(candidate => {
-      return optionsHasRequirement(candidate.options, 'FRESH_GRAD')
-    })
+    return candidatesWithRequirement(candidates, 'FRESH_GRAD')
   }
 
   return candidates.filter(candidate => {
