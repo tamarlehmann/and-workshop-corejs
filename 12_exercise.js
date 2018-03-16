@@ -17,34 +17,38 @@
  */
 
 
-function optionsHasFilter(options, filter){
+function optionsHasRequirement(options, requirement){
   if (!options) return
    return options.some(option => {
-    return option.code == filter;
+    return option.code == requirement;
   })
 }
 
-function filterCandidates(candidates, filters) {
-  if(!filters || filters.length === 0) {
+// function something(candidates, filter) {
+//   returnAllCandidatesWithFilter
+// }
+
+function filterCandidates(candidates, requirements) {
+  if(!requirements || requirements.length === 0) {
     return candidates
   };
 
-  if (filters.includes('AVAILABLE_IMMEDIATELY')) {
+  if (requirements.includes('AVAILABLE_IMMEDIATELY')) {
     return candidates.filter(candidate => {
-      return optionsHasFilter(candidate.options, 'AVAILABLE_IMMEDIATELY');
+      return optionsHasRequirement(candidate.options, 'AVAILABLE_IMMEDIATELY');
     })
   }
 
-  if (filters.includes('FRESH_GRAD')) {
+  if (requirements.includes('FRESH_GRAD')) {
     return candidates.filter(candidate => {
-      return optionsHasFilter(candidate.options, 'FRESH_GRAD')
+      return optionsHasRequirement(candidate.options, 'FRESH_GRAD')
     })
   }
 
   return candidates.filter(candidate => {
     if (!candidate.options) return
-    var candidateCodes = candidate.options.map(option => option.code);
-    return filters.every(filter => candidateCodes.includes(filter))
+    let candidateCodes = candidate.options.map(option => option.code);
+    return requirements.every(requirement => candidateCodes.includes(requirement))
   });
 
 }

@@ -73,13 +73,13 @@ it('should return 5 candidate with [JAVASCRIPT] when any candidate has no option
   expect(candidates[2].name).toBe('Maria Bianchi');
 })
 
-it('should return all candidates if there is no filter', () => {
+it('should return all candidates if there is no requirements', () => {
   const candidates = filterCandidates(data);
 
   expect(candidates.length).toBe(9);
 });
 
-it.only('should return all candidates if the filter aray is empty', () => {
+it('should return all candidates if the requirement aray is empty', () => {
   const candidates = filterCandidates(data, []);
 
   expect(candidates.length).toBe(9);
